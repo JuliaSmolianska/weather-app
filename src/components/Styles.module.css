@@ -1,0 +1,129 @@
+:root {
+  --grey: #808080; /* Сірий */
+  --dark-grey: #404040; /* Темно-сірий */
+  --light-grey: #d5d3d3; /* Світло-сірий */
+  --sky: rgb(37, 128, 212);
+  --light-sky: rgb(232, 232, 253);
+  --light-skyblue: rgb(102, 102, 254);
+  --light: rgb(247, 235, 221);
+  --white: white;
+  --warm: rgb(236, 184, 28);
+}
+/*    App    */
+.box {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqXoN3eKXqBOtFG6VkZfoAkMQAPeHhUFlENayjxZtSLhiTQFjKKCIFCT4vzsV9YDvCp68&usqp=CAU");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 700px;
+}
+/*    LanguageSwitcher    */
+.language_switcher_box {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  cursor: pointer;
+  color: var(--grey);
+}
+.language_switcher {
+  display: flex;
+}
+.language_name {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+.language_switcher_box ul {
+  width: 60px;
+  list-style-type: none;
+  box-shadow: 0px 0px 5px var(--light-grey), 5px 5px 10px var(--light-grey);
+  padding: 0;
+  margin-top: 10px;
+}
+.language_switcher_box li {
+  padding-left: 10px;
+  transition: 500ms;
+  font-weight: 600;
+}
+.language_switcher_box li:hover,
+.language_switcher_box li:active {
+  background-color: var(--light-grey);
+}
+
+/*    CitySearch    */
+.city_search_box {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.city_search_button {
+  width: 90px;
+  color: var(--white);
+  text-align: center;
+  background-color: var(--sky);
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  margin-left: 5px;
+}
+.city_search_input {
+  width: 200px;
+  box-shadow: 0px 0px 5px var(--light-grey), 5px 5px 10px var(--light-grey);
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  padding: 5px 10px;
+}
+.city_search_box ul {
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.city_search_box li:hover {
+  background-color: var(--light-grey);
+}
+
+/*    Card     */
+.card_box {
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px var(--light-grey), 5px 5px 10px var(--light-grey);
+  padding: 0;
+  background-color: var(--light-sky);
+  font-size: smaller;
+}
+.card_box_cold {
+  background-color: var(--light-sky);
+}
+.text_cold {
+  color: var(--sky);
+}
+.card_box_warm {
+  background-color: var(--light);
+}
+.text_warm {
+  color: var(--warm);
+}
+.remove_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  transition: 500ms;
+}
+.remove_button:hover {
+  transform: scale(1.2);
+}
+.chart {
+  height: 150px;
+  margin-top: -20px;
+}
+.color {
+  color: var(--grey);
+  cursor: pointer;
+}
+.cursor {
+  cursor: pointer;
+}

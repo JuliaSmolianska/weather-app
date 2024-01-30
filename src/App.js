@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import WeatherCard from './components/WeatherCard';
+import CitySearch from './components/CitySearch';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import LocationRequest from './components/LocationRequest';
+import css from "./components/Styles.module.css";
 
-function App() {
+const App = () => {
+  const currentLanguage = useSelector((state) => state.language.globalLanguage);
+  const currentCitiesWeather = `citiesWeather${currentLanguage.toUpperCase()}`;
+  const citiesWeather = useSelector((state) => state.weather[currentCitiesWeather]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Col className={`ps-3 pe-3 ${css.box}`}>
+      <h1 className='text-center mb-4 mt-3'>Weather App</h1>
+      <LocationRequest />
+      <CitySearch />
+      <LanguageSwitcher />
+      <Row>
+        {citiesWeather.map((cityWeather, index) => (
+          <WeatherCard key={index} cityWeather={cityWeather} index={index} />
+        ))}
+      </Row>
+    </Col>
+
   );
-}
+};
 
 export default App;
