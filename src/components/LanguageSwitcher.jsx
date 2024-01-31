@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setGlobalLanguage } from "../redux/language/languageActions";
 import { GrLanguage } from "react-icons/gr";
@@ -11,7 +11,7 @@ const LanguageSwitcher = () => {
   const globalLanguage = useSelector((state) => state.language.globalLanguage);
 
   const languages = ["en", "ua", "he"];
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(globalLanguage);
@@ -27,18 +27,14 @@ const LanguageSwitcher = () => {
     setDropdownOpen(false);
   };
 
-  const handleOutsideClick = (event) => {
-    if (isDropdownOpen && !event.target.closest("#language-switcher")) {
-      setDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (selectedLanguage !== globalLanguage) {
-      dispatch(setGlobalLanguage(selectedLanguage));
-      console.log("Current language:", selectedLanguage);
-    }
-  }, [dispatch, selectedLanguage, globalLanguage]);
+  const handleOutsideClick = useCallback(
+    (event) => {
+      if (isDropdownOpen && !event.target.closest("#language-switcher")) {
+        setDropdownOpen(false);
+      }
+    },
+    [isDropdownOpen, setDropdownOpen]
+  );
 
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
@@ -46,7 +42,13 @@ const LanguageSwitcher = () => {
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [isDropdownOpen]);
+  }, [isDropdownOpen, handleOutsideClick]);
+
+  useEffect(() => {
+    if (selectedLanguage !== globalLanguage) {
+      dispatch(setGlobalLanguage(selectedLanguage));
+    }
+  }, [dispatch, selectedLanguage, globalLanguage]);
 
   return (
     <div className={css.language_switcher_box} id="language-switcher">

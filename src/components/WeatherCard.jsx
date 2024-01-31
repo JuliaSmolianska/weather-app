@@ -40,7 +40,7 @@ const WeatherCard = ({ cityWeather, index }) => {
 
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   if (!cityWeather) {
     return null;
@@ -94,7 +94,7 @@ const WeatherCard = ({ cityWeather, index }) => {
 
   const selectedLabels = selectedIndices.map((index) => {
     const fullDate = weatherForecast.list[index].dt_txt;
-    const [year, month, day] = fullDate.split(" ")[0].split("-");
+    const [ , month, day] = fullDate.split(" ")[0].split("-");
     const reorderedDate = [day, month].join(".");
     return reorderedDate;
   });

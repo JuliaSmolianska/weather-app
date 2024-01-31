@@ -65,9 +65,9 @@ const LocationRequest = ({ onLocationReceived }) => {
     };
 
     getLocation();
-  }, [onLocationReceived]);
+  }, []);
 
-  return <div style={{ display: "none" }} />;
+  return <div>{location && <div style={{ display: "none" }} />}</div>;
 };
 
 export default LocationRequest;
