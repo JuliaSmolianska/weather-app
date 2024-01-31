@@ -65,7 +65,7 @@ const LocationRequest = ({ onLocationReceived }) => {
     };
 
     getLocation();
-  }, []);
+  }, [dispatch]);
 
   return <div>{location && <div style={{ display: "none" }} />}</div>;
 };
