@@ -20,7 +20,7 @@ const settingsReducer = (state = initialState, action) => {
       };
     case ADD_CITY:
       const cityExists = state.cities.some(city =>
-        city.city === action.payload.citi && city.country === action.payload.country
+        city.city === action.payload.city && city.country === action.payload.country
       );
 
       if (!cityExists) {

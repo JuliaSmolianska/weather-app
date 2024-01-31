@@ -77,8 +77,13 @@ const WeatherCard = ({ cityWeather, index }) => {
     dispatch(removeCityWeather(index));
   };
   const temperatureClass =
-    currentWeather.main.temp > -1 ? "card_box_warm" : "card_box_cold";
-  const tempClass = currentWeather.main.temp > -1 ? "text_warm" : "text_cold";
+    getFormattedRound(currentWeather.main.temp) >= 0
+      ? "card_box_warm"
+      : "card_box_cold";
+  const tempClass =
+    getFormattedRound(currentWeather.main.temp) >= 0
+      ? "text_warm"
+      : "text_cold";
 
   const selectedIndices = [0, 7, 15, 23, 31, 39];
   const selectedTemperatureData = selectedIndices.map((index) =>
@@ -191,9 +196,7 @@ const WeatherCard = ({ cityWeather, index }) => {
           <Col xs={6} className="pe-0">
             <div className="d-flex">
               <h1 className="mb-0 fw-medium">
-                {temperatureUnit === "Celsius"
-                  ? currentWeather.main.temp >= 0.5 && "+"
-                  : ""}
+                {getFormattedRound(currentWeather.main.temp) >= 1 && "+"}
                 {getFormattedRound(
                   temperatureUnit === "Celsius"
                     ? currentWeather.main.temp
@@ -225,7 +228,8 @@ const WeatherCard = ({ cityWeather, index }) => {
               </h5>
             </div>
             <p className={css.color}>
-              {t("Feels like")}: {currentWeather.main.temp >= 0.5 && "+"}
+              {t("Feels like")}:{" "}
+              {getFormattedRound(currentWeather.main.temp) >= 1 && "+"}
               {getFormattedRound(
                 temperatureUnit === "Celsius"
                   ? currentWeather.main.temp

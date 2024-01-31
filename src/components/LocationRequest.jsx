@@ -47,7 +47,7 @@ const LocationRequest = ({ onLocationReceived }) => {
           };
 
           const currentCity = {
-            name: weatherForecastDataEN.city.name,
+            city: weatherForecastDataEN.city.name,
             country: weatherForecastDataEN.city.country,
           };
           dispatch(addCity(currentCity));
