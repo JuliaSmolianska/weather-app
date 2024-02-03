@@ -79,7 +79,7 @@ const WeatherCard = ({ cityWeather, index }) => {
         ? "+" + getFormattedRound(currentWeather.main.temp)
         : getFormattedRound(currentWeather.main.temp)
       : temperatureUnit === "Fahrenheit" &&
-        (currentWeather.main.temp * 9) / 5 + 32 >= 1
+      getFormattedRound((currentWeather.main.temp * 9) / 5 + 32) >= 1
       ? "+" + getFormattedRound((currentWeather.main.temp * 9) / 5 + 32)
       : getFormattedRound((currentWeather.main.temp * 9) / 5 + 32);
 
