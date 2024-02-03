@@ -81,7 +81,7 @@ const WeatherCard = ({ cityWeather, index }) => {
       : temperatureUnit === "Fahrenheit" &&
         (currentWeather.main.temp * 9) / 5 + 32 >= 1
       ? "+" + getFormattedRound((currentWeather.main.temp * 9) / 5 + 32)
-      : (currentWeather.main.temp * 9) / 5 + 32;
+      : getFormattedRound((currentWeather.main.temp * 9) / 5 + 32);
 
   const removeCard = (index) => {
     dispatch(removeCityWeather(index));
