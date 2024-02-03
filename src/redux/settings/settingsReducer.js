@@ -1,5 +1,7 @@
 // src/redux/settingsReducer.js
-import { TOGGLE_TEMPERATURE_UNIT, ADD_CITY } from './settingsActions.js';
+import { TOGGLE_TEMPERATURE_UNIT, ADD_CITY, 
+  FETCH_DATA_LOADING, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE 
+} from './settingsActions.js';
 
 const initialState = {
   temperatureUnit: localStorage.getItem("temperatureUnit") ?? "Celsius",
@@ -9,6 +11,8 @@ const initialState = {
       country: "UA"
     }
   ],
+  loading: false,
+  error: null,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -30,6 +34,23 @@ const settingsReducer = (state = initialState, action) => {
         };
       }
       return state;
+      case FETCH_DATA_LOADING:
+        return {
+          ...state,
+          loading: true,
+          error: null,
+        };
+      case FETCH_DATA_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+        };
+      case FETCH_DATA_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload,
+        };
     default:
       return state;
   }

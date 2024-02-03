@@ -72,8 +72,18 @@ const WeatherCard = ({ cityWeather, index }) => {
       dispatch(toggleTemperatureUnit(selectedUnit));
     }
   };
+
+  const temperatureValue =
+    temperatureUnit === "Celsius"
+      ? getFormattedRound(currentWeather.main.temp) >= 1
+        ? "+" + getFormattedRound(currentWeather.main.temp)
+        : getFormattedRound(currentWeather.main.temp)
+      : temperatureUnit === "Fahrenheit" &&
+        (currentWeather.main.temp * 9) / 5 + 32 >= 1
+      ? "+" + getFormattedRound((currentWeather.main.temp * 9) / 5 + 32)
+      : (currentWeather.main.temp * 9) / 5 + 32;
+
   const removeCard = (index) => {
-    console.log("Removing card at index:", index);
     dispatch(removeCityWeather(index));
   };
   const temperatureClass =
@@ -94,7 +104,7 @@ const WeatherCard = ({ cityWeather, index }) => {
 
   const selectedLabels = selectedIndices.map((index) => {
     const fullDate = weatherForecast.list[index].dt_txt;
-    const [ , month, day] = fullDate.split(" ")[0].split("-");
+    const [, month, day] = fullDate.split(" ")[0].split("-");
     const reorderedDate = [day, month].join(".");
     return reorderedDate;
   });
@@ -195,14 +205,7 @@ const WeatherCard = ({ cityWeather, index }) => {
         <Row className="ps-3 pe-3">
           <Col xs={6} className="pe-0">
             <div className="d-flex">
-              <h1 className="mb-0 fw-medium">
-                {getFormattedRound(currentWeather.main.temp) >= 1 && "+"}
-                {getFormattedRound(
-                  temperatureUnit === "Celsius"
-                    ? currentWeather.main.temp
-                    : (currentWeather.main.temp * 9) / 5 + 32
-                )}
-              </h1>
+              <h1 className="mb-0 fw-medium">{temperatureValue}</h1>
               <h5 className={css.cursor}>
                 <span
                   onClick={() => toggleUnit("Celsius")}
@@ -228,13 +231,7 @@ const WeatherCard = ({ cityWeather, index }) => {
               </h5>
             </div>
             <p className={css.color}>
-              {t("Feels like")}:{" "}
-              {getFormattedRound(currentWeather.main.temp) >= 1 && "+"}
-              {getFormattedRound(
-                temperatureUnit === "Celsius"
-                  ? currentWeather.main.temp
-                  : (currentWeather.main.temp * 9) / 5 + 32
-              )}
+              {t("Feels like")}: {temperatureValue}
               {temperatureUnit === "Celsius" ? "°C" : "°F"}
             </p>
           </Col>

@@ -6,7 +6,6 @@ const OPEN_WEATHER_API_KEY = '5ad22980fbdab2cf000f47d264b9f2aa';
 export const getWeatherForecastEN = async (city) => {
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=en`;
   const response = await axios.get(url);
-  console.log(response.data)
   return response.data;
 };
 

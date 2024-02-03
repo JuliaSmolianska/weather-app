@@ -7,50 +7,76 @@ import {
 } from "../services/weatherService";
 import css from "./Styles.module.css";
 import { addCityWeather } from "../redux/weather/weatherActions";
-import { addCity } from "../redux/settings/settingsActions";
+import {
+  addCity,
+  fetchDataLoading,
+  fetchDataFailure,
+  fetchDataSuccess,
+} from "../redux/settings/settingsActions";
+import toast, { Toaster } from "react-hot-toast";
 
 const CitySearch = () => {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const cities = useSelector((state) => state.settings.cities);
+  const error = useSelector((state) => state.settings.error);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const inputRef = useRef(null);
 
   const handleSearch = async () => {
     if (city.trim() !== "") {
-      const weatherForecastDataUA = await getWeatherForecastUA(city);
-      const cityWeatherObjectUA = {
-        ua: weatherForecastDataUA,
-      };
+      try {
+        dispatch(fetchDataLoading());
+        const weatherForecastDataUA = await getWeatherForecastUA(city);
+        const cityWeatherObjectUA = {
+          ua: weatherForecastDataUA,
+        };
 
-      const weatherForecastDataEN = await getWeatherForecastEN(city);
-      const cityWeatherObjectEN = {
-        en: weatherForecastDataEN,
-      };
+        const weatherForecastDataEN = await getWeatherForecastEN(city);
+        const cityWeatherObjectEN = {
+          en: weatherForecastDataEN,
+        };
 
-      const currentCity = {
-        city: weatherForecastDataEN.city.name,
-        country: weatherForecastDataEN.city.country,
-      };
+        const currentCity = {
+          city: weatherForecastDataEN.city.name,
+          country: weatherForecastDataEN.city.country,
+        };
 
-      const weatherForecastDataHE = await getWeatherForecastHE(city);
-      const cityWeatherObjectHE = {
-        he: weatherForecastDataHE,
-      };
+        const weatherForecastDataHE = await getWeatherForecastHE(city);
+        const cityWeatherObjectHE = {
+          he: weatherForecastDataHE,
+        };
 
-      dispatch(
-        addCityWeather(
-          cityWeatherObjectUA,
-          cityWeatherObjectEN,
-          cityWeatherObjectHE
-        )
-      );
-      dispatch(addCity(currentCity));
-      setCity("");
+        dispatch(fetchDataSuccess());
+        dispatch(
+          addCityWeather(
+            cityWeatherObjectUA,
+            cityWeatherObjectEN,
+            cityWeatherObjectHE
+          )
+        );
+        dispatch(addCity(currentCity));
+        setCity("");
+      } catch (error) {
+        const errorPayload = {
+          message: error.message || "Something went wrong.",
+          status: error.response ? error.response.status : null,
+        };
+        dispatch(fetchDataFailure(errorPayload));
+        let errorMessage = "Something went wrong.";
+        if (error.response && error.response.status === 404) {
+          errorMessage =
+            "City not found. Please, try again or use your location!";
+        }
+        toast.error(`Error: ${errorMessage}`, {
+          duration: 5000,
+          position: "top-center",
+        });
+      }
     }
   };
-  console.log(cities);
+
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setCity(inputValue);
@@ -117,6 +143,7 @@ const CitySearch = () => {
           Add
         </button>
       </div>
+      {error && <Toaster />}
     </div>
   );
 };

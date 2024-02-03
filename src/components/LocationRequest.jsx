@@ -7,9 +7,14 @@ import {
   getWeatherByCoordinatesHE,
 } from "../services/weatherService";
 import { addCityWeather } from "../redux/weather/weatherActions";
-import { addCity } from "../redux/settings/settingsActions";
+import {
+  addCity,
+  fetchDataLoading,
+  fetchDataFailure,
+  fetchDataSuccess,
+} from "../redux/settings/settingsActions";
 
-const LocationRequest = ({ onLocationReceived }) => {
+const LocationRequest = () => {
   const [location, setLocation] = useState(null);
   const dispatch = useDispatch();
 
@@ -21,43 +26,48 @@ const LocationRequest = ({ onLocationReceived }) => {
             coords: { latitude: lat, longitude: lon },
           } = position;
           setLocation({ lat, lon });
+          try {
+            dispatch(fetchDataLoading());
+            const weatherForecastDataUA = await getWeatherByCoordinatesUA(
+              lat,
+              lon
+            );
+            const cityWeatherObjectUA = {
+              ua: weatherForecastDataUA,
+            };
 
-          const weatherForecastDataUA = await getWeatherByCoordinatesUA(
-            lat,
-            lon
-          );
-          const cityWeatherObjectUA = {
-            ua: weatherForecastDataUA,
-          };
+            const weatherForecastDataEN = await getWeatherByCoordinatesEN(
+              lat,
+              lon
+            );
+            const cityWeatherObjectEN = {
+              en: weatherForecastDataEN,
+            };
 
-          const weatherForecastDataEN = await getWeatherByCoordinatesEN(
-            lat,
-            lon
-          );
-          const cityWeatherObjectEN = {
-            en: weatherForecastDataEN,
-          };
+            const weatherForecastDataHE = await getWeatherByCoordinatesHE(
+              lat,
+              lon
+            );
+            const cityWeatherObjectHE = {
+              he: weatherForecastDataHE,
+            };
 
-          const weatherForecastDataHE = await getWeatherByCoordinatesHE(
-            lat,
-            lon
-          );
-          const cityWeatherObjectHE = {
-            he: weatherForecastDataHE,
-          };
-
-          const currentCity = {
-            city: weatherForecastDataEN.city.name,
-            country: weatherForecastDataEN.city.country,
-          };
-          dispatch(addCity(currentCity));
-          dispatch(
-            addCityWeather(
-              cityWeatherObjectUA,
-              cityWeatherObjectEN,
-              cityWeatherObjectHE
-            )
-          );
+            const currentCity = {
+              city: weatherForecastDataEN.city.name,
+              country: weatherForecastDataEN.city.country,
+            };
+            dispatch(fetchDataSuccess());
+            dispatch(addCity(currentCity));
+            dispatch(
+              addCityWeather(
+                cityWeatherObjectUA,
+                cityWeatherObjectEN,
+                cityWeatherObjectHE
+              )
+            );
+          } catch (error) {
+            dispatch(fetchDataFailure(error.message));
+          }
         });
       } else {
         console.error("Geolocation is not supported by this browser.");

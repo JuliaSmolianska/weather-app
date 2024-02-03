@@ -22,7 +22,6 @@ const LanguageSwitcher = () => {
 
   const changeLanguage = (language) => {
     setSelectedLanguage(language);
-    console.log(language);
     i18n.changeLanguage(language);
     setDropdownOpen(false);
   };
