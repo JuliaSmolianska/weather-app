@@ -11,7 +11,7 @@ import css from "./components/Styles.module.css";
 import { Toaster } from 'react-hot-toast';
 
 const App = () => {
-  const currentLanguage = useSelector((state) => state.language.globalLanguage);
+  const currentLanguage = useSelector((state) => state.settings.globalLanguage);
   const currentCitiesWeather = `citiesWeather${currentLanguage.toUpperCase()}`;
   const citiesWeather = useSelector((state) => state.weather[currentCitiesWeather]);
   const loading = useSelector((state) => state.settings.loading);

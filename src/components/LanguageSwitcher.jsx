@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setGlobalLanguage } from "../redux/language/languageActions";
+import { setGlobalLanguage } from "../redux/settings/settingsActions";
 import { GrLanguage } from "react-icons/gr";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import css from "./Styles.module.css";
@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher = () => {
   const dispatch = useDispatch();
-  const globalLanguage = useSelector((state) => state.language.globalLanguage);
+  const globalLanguage = useSelector((state) => state.settings.globalLanguage);
 
   const languages = ["en", "ua", "he"];
   const { i18n } = useTranslation();

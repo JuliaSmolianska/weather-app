@@ -11,19 +11,18 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import languageReducer from './language/languageReducer.js';
+//import languageReducer from './language/languageReducer.js';
 import settingsReducer from './settings/settingsReducer.js';
 import weatherReducer from './weather/weatherReducer.js';
 
 const settingsPersistConfig = {
   key: 'settings',
   storage,
-  whitelist: ['temperatureUnit', 'globalLanguage'],
+  whitelist: ['temperatureUnit', 'globalLanguage', 'cities'],
 };
 
 export const store = configureStore({
   reducer: {
-    language: languageReducer,
     settings: persistReducer(settingsPersistConfig, settingsReducer),
     weather: weatherReducer,
   },

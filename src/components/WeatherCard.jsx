@@ -36,7 +36,7 @@ const WeatherCard = ({ cityWeather, index }) => {
   const temperatureUnit = useSelector(
     (state) => state.settings.temperatureUnit
   );
-  const currentLanguage = useSelector((state) => state.language.globalLanguage);
+  const currentLanguage = useSelector((state) => state.settings.globalLanguage);
 
   const dispatch = useDispatch();
 
@@ -203,7 +203,7 @@ const WeatherCard = ({ cityWeather, index }) => {
           <Line data={temperatureChartData} options={options} />
         </Col>
         <Row className="ps-3 pe-3">
-          <Col xs={6} className="pe-0">
+          <Col xs={7} className="pe-0">
             <div className="d-flex">
               <h1 className="mb-0 fw-medium">{temperatureValue}</h1>
               <h5 className={css.cursor}>
@@ -235,7 +235,7 @@ const WeatherCard = ({ cityWeather, index }) => {
               {temperatureUnit === "Celsius" ? "°C" : "°F"}
             </p>
           </Col>
-          <Col xs={6}>
+          <Col xs={5} className="ps-0 pe-0">
             <div className="pt-2">
               <p className="m-0">
                 {t("Wind")}:{" "}

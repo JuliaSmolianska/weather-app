@@ -1,11 +1,12 @@
-// src/redux/settingsReducer.js
-import { TOGGLE_TEMPERATURE_UNIT, ADD_CITY, 
-  FETCH_DATA_LOADING, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE 
+import {
+  TOGGLE_TEMPERATURE_UNIT, SET_GLOBAL_LANGUAGE, ADD_CITY,
+  FETCH_DATA_LOADING, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE
 } from './settingsActions.js';
 
 const initialState = {
-  temperatureUnit: localStorage.getItem("temperatureUnit") ?? "Celsius",
-  cities: [
+  temperatureUnit: localStorage.getItem("temperatureUnit") || "Celsius",
+  globalLanguage: localStorage.getItem("language") || "en",
+  cities: JSON.parse(localStorage.getItem('cities')) || [
     {
       city: "Kyiv",
       country: "UA"
@@ -22,6 +23,8 @@ const settingsReducer = (state = initialState, action) => {
         ...state,
         temperatureUnit: state.temperatureUnit === 'Celsius' ? 'Fahrenheit' : 'Celsius',
       };
+    case SET_GLOBAL_LANGUAGE:
+      return { ...state, globalLanguage: action.payload };
     case ADD_CITY:
       const cityExists = state.cities.some(city =>
         city.city === action.payload.city && city.country === action.payload.country
@@ -34,23 +37,23 @@ const settingsReducer = (state = initialState, action) => {
         };
       }
       return state;
-      case FETCH_DATA_LOADING:
-        return {
-          ...state,
-          loading: true,
-          error: null,
-        };
-      case FETCH_DATA_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-        };
-      case FETCH_DATA_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          error: action.payload,
-        };
+    case FETCH_DATA_LOADING:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FETCH_DATA_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case FETCH_DATA_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

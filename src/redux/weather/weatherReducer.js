@@ -1,4 +1,3 @@
-// src/redux/weatherReducer.js
 import { ADD_CITY_WEATHER, REMOVE_CITY_WEATHER } from './weatherActions.js';
 
 const initialState = {
