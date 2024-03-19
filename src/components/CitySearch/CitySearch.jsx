@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getWeatherForecastEN,
   getWeatherForecastUA,
-  getWeatherForecastHE,
-} from "../services/weatherService";
-import css from "./Styles.module.css";
-import { addCityWeather } from "../redux/weather/weatherActions";
+  getWeatherForecastDE,
+} from "../../services/weatherService";
+import css from "./CitySearch.module.css";
+import { addCityWeather } from "../../redux/weather/weatherActions";
 import {
   addCity,
   fetchDataLoading,
   fetchDataFailure,
   fetchDataSuccess,
-} from "../redux/settings/settingsActions";
+} from "../../redux/settings/settingsActions";
+import { useTranslation } from "react-i18next";
 import toast, { Toaster } from "react-hot-toast";
 
 const CitySearch = () => {
@@ -23,6 +24,7 @@ const CitySearch = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const inputRef = useRef(null);
+  const { t } = useTranslation();
 
   const handleSearch = async () => {
     if (city.trim() !== "") {
@@ -43,9 +45,9 @@ const CitySearch = () => {
           country: weatherForecastDataEN.city.country,
         };
 
-        const weatherForecastDataHE = await getWeatherForecastHE(city);
-        const cityWeatherObjectHE = {
-          he: weatherForecastDataHE,
+        const weatherForecastDataDE = await getWeatherForecastDE(city);
+        const cityWeatherObjectDE = {
+          de: weatherForecastDataDE,
         };
 
         dispatch(fetchDataSuccess());
@@ -53,7 +55,7 @@ const CitySearch = () => {
           addCityWeather(
             cityWeatherObjectUA,
             cityWeatherObjectEN,
-            cityWeatherObjectHE
+            cityWeatherObjectDE
           )
         );
         dispatch(addCity(currentCity));
@@ -74,6 +76,12 @@ const CitySearch = () => {
           position: "top-center",
         });
       }
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
     }
   };
 
@@ -124,6 +132,7 @@ const CitySearch = () => {
           type="text"
           value={city}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           autoComplete="on"
         />
         <ul>
@@ -140,7 +149,7 @@ const CitySearch = () => {
       </div>
       <div>
         <button onClick={handleSearch} className={css.city_search_button}>
-          Add
+          {t("SearchButton")}
         </button>
       </div>
       {error && <Toaster />}

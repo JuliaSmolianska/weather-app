@@ -11,7 +11,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-//import languageReducer from './language/languageReducer.js';
 import settingsReducer from './settings/settingsReducer.js';
 import weatherReducer from './weather/weatherReducer.js';
 

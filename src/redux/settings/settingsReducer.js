@@ -24,6 +24,7 @@ const settingsReducer = (state = initialState, action) => {
         temperatureUnit: state.temperatureUnit === 'Celsius' ? 'Fahrenheit' : 'Celsius',
       };
     case SET_GLOBAL_LANGUAGE:
+      localStorage.setItem("language", action.payload);
       return { ...state, globalLanguage: action.payload };
     case ADD_CITY:
       const cityExists = state.cities.some(city =>

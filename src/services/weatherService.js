@@ -15,8 +15,8 @@ export const getWeatherForecastUA = async (city) => {
   return response.data;
 };
 
-export const getWeatherForecastHE = async (city) => {
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=he`;
+export const getWeatherForecastDE = async (city) => {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=de`;
   const response = await axios.get(url);
   return response.data;
 };
@@ -33,8 +33,8 @@ export const getWeatherByCoordinatesUA = async (lat, lon) => {
   return response.data;
 };
 
-export const getWeatherByCoordinatesHE = async (lat, lon) => {
-  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=he`;
+export const getWeatherByCoordinatesDE = async (lat, lon) => {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=de`;
   const response = await axios.get(url);
   return response.data;
 };

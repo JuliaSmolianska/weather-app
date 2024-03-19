@@ -6,7 +6,7 @@ export const removeCityWeather = (index) => ({
   payload: index,
 });
 
-export const addCityWeather = (ua, en, he) => ({
+export const addCityWeather = (ua, en, de) => ({
   type: ADD_CITY_WEATHER,
-  payload: { ua, en, he },
+  payload: { ua, en, de },
 });

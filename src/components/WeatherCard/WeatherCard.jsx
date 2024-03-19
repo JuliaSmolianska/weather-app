@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTemperatureUnit } from "../redux/settings/settingsActions";
-import { removeCityWeather } from "../redux/weather/weatherActions";
-import css from "./Styles.module.css";
+import { toggleTemperatureUnit } from "../../redux/settings/settingsActions";
+import { removeCityWeather } from "../../redux/weather/weatherActions";
+import css from "./WeatherCard.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { MdClose } from "react-icons/md";
@@ -79,7 +79,7 @@ const WeatherCard = ({ cityWeather, index }) => {
         ? "+" + getFormattedRound(currentWeather.main.temp)
         : getFormattedRound(currentWeather.main.temp)
       : temperatureUnit === "Fahrenheit" &&
-      getFormattedRound((currentWeather.main.temp * 9) / 5 + 32) >= 1
+        getFormattedRound((currentWeather.main.temp * 9) / 5 + 32) >= 1
       ? "+" + getFormattedRound((currentWeather.main.temp * 9) / 5 + 32)
       : getFormattedRound((currentWeather.main.temp * 9) / 5 + 32);
 

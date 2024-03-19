@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   getWeatherByCoordinatesEN,
   getWeatherByCoordinatesUA,
-  getWeatherByCoordinatesHE,
+  getWeatherByCoordinatesDE,
 } from "../services/weatherService";
 import { addCityWeather } from "../redux/weather/weatherActions";
 import {
@@ -44,12 +44,12 @@ const LocationRequest = () => {
               en: weatherForecastDataEN,
             };
 
-            const weatherForecastDataHE = await getWeatherByCoordinatesHE(
+            const weatherForecastDataDE = await getWeatherByCoordinatesDE(
               lat,
               lon
             );
-            const cityWeatherObjectHE = {
-              he: weatherForecastDataHE,
+            const cityWeatherObjectDE = {
+              de: weatherForecastDataDE,
             };
 
             const currentCity = {
@@ -62,7 +62,7 @@ const LocationRequest = () => {
               addCityWeather(
                 cityWeatherObjectUA,
                 cityWeatherObjectEN,
-                cityWeatherObjectHE
+                cityWeatherObjectDE
               )
             );
           } catch (error) {

@@ -1,0 +1,34 @@
+/*    LanguageSwitcher    */
+.language_switcher_box {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  cursor: pointer;
+  color: var(--grey);
+}
+.language_switcher {
+  display: flex;
+}
+.language_name {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: -5px;
+  text-transform: uppercase;
+}
+.language_switcher_box ul {
+  width: 60px;
+  list-style-type: none;
+  box-shadow: 0px 0px 5px var(--light-grey), 5px 5px 10px var(--light-grey);
+  padding: 0;
+  margin-top: 10px;
+  background-color: var(--white);
+}
+.language_switcher_box li {
+  padding-left: 10px;
+  transition: 500ms;
+  font-weight: 600;
+}
+.language_switcher_box li:hover,
+.language_switcher_box li:active {
+  background-color: var(--light-grey);
+}

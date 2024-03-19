@@ -1,0 +1,43 @@
+/*    Card     */
+.card_box {
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px var(--light-grey), 5px 5px 10px var(--light-grey);
+  padding: 0;
+  background-color: var(--light-sky);
+  font-size: smaller;
+}
+.card_box_cold {
+  background-color: var(--light-sky);
+}
+.text_cold {
+  color: var(--sky);
+}
+.card_box_warm {
+  background-color: var(--light);
+}
+.text_warm {
+  color: var(--warm);
+}
+.remove_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  transition: 500ms;
+}
+.remove_button:hover {
+  transform: scale(1.2);
+}
+.chart {
+  height: 150px;
+  margin-top: -20px;
+}
+.color {
+  color: var(--grey);
+  cursor: pointer;
+}
+.cursor {
+  cursor: pointer;
+}

@@ -8,6 +8,7 @@ export const FETCH_DATA_FAILURE = 'FETCH_DATA_FAILURE';
 export const toggleTemperatureUnit = (temperatureUnit) => {
   return {
     type: TOGGLE_TEMPERATURE_UNIT,
+    payload: temperatureUnit,
   };
 }
 

@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setGlobalLanguage } from "../redux/settings/settingsActions";
+import { setGlobalLanguage } from "../../redux/settings/settingsActions";
 import { GrLanguage } from "react-icons/gr";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import css from "./Styles.module.css";
+import css from "./LanguageSwitcher.module.css";
 import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher = () => {
   const dispatch = useDispatch();
   const globalLanguage = useSelector((state) => state.settings.globalLanguage);
 
-  const languages = ["en", "ua", "he"];
+  const languages = ["en", "ua", "de"];
   const { i18n } = useTranslation();
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -53,9 +53,7 @@ const LanguageSwitcher = () => {
     <div className={css.language_switcher_box} id="language-switcher">
       <div className={css.language_switcher} onClick={toggleDropdown}>
         <GrLanguage />
-        <div className={css.language_name}>
-          {selectedLanguage.toUpperCase()}
-        </div>
+        <div className={css.language_name}>{selectedLanguage}</div>
         <RiArrowDropDownLine size={20} />
       </div>
 
